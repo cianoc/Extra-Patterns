@@ -1,4 +1,48 @@
+Pclip : Pattern {
+	var pbind;
 
+	*new {|... pairs|
+		^super.new.init(pairs);
+	}
+
+	init{|... pairs|
+		pbind = Pbind(pairs);
+	}
+
+	patternpairs{
+		^pbind.patternpairs;
+	}
+
+	storeArgs { ^pbind.patternpairs }
+
+	embedInStream{|inevent|
+		var startTime = thisThread.beats;
+		var currTime = startTime;
+		var stream = pbind.asStream;
+
+		loop{
+			var t;
+			var evt = stream.next(inevent);
+			if (evt.isNil) { ^nil.yield };
+
+			if ((t = evt[\bar]).notNil){
+				var bars = t.floor;
+
+			}
+
+			if(event[\bar].isNil.not  ||
+				event[\beat].isNil.not  ||
+				event[\barDur].isNil.not)
+			{
+				event = inevent.copy;
+
+			next = stream.next(event);
+			next.notNil;
+		}{
+			if(
+
+	}
+}
 
 Pkr : Pfunc {
 	*new {|bus|
