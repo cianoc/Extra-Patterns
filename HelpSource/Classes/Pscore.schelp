@@ -1,0 +1,20 @@
+TITLE:: Pscore
+summary:: Pattern class that creates streams from an array of events with start times, or a priority queue.
+categories:: Patterns
+related:: Classes/PriorityQueue
+
+DESCRIPTION::
+A utility class for creating a stream of events that works with the pattern system, from either an array, or priority queue, of events with a start time. It will take an array with the format: '[[beat, event], [beat, event]...]', or a priority queue containing events, and return a string with rests appropriately inserted.
+
+Each event is responsible for it's own duration, and overlapping events are fine and will work okay.
+
+CLASSMETHODS::
+
+METHOD:: new
+
+
+ARGUMENT:: score
+This must either be an array of the format: '[[beat, event], [beat, event]...]', or a priority queue containing events.
+
+ARGUMENT:: repeats
+The number of times this stream should repeat.
