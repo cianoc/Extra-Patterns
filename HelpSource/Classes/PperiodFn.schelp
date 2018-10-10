@@ -1,0 +1,23 @@
+TITLE:: PperiodFn
+summary:: Periodic function pattern
+categories:: Patterns
+related:: Pfunc
+
+DESCRIPTION::
+This pattern will pass a value to the function based upon the current beat, where 0 is the start of the beat, and 2pi is the start of the next beat. This is useful for generating events based upon the current time. For example you could have a sin function whose period is 4 beats, which you might use to control amplitude.
+
+CLASSMETHODS::
+
+METHOD:: new
+
+ARGUMENT:: fn
+A function that expects a value between 0 and 2pi, where 0 is the start of the beat, and 2pi is the next beat.
+
+INSTANCEMETHODS::
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

@@ -1,6 +1,8 @@
 
-Pperfn : Pfunc {
+PperiodFn : Pfunc {
 	*new {|fn|
-		^super.new({fn.value(thisThread.beats.frac*2*pi)});
+    ^super.new({|event|
+      var beatFrac = event[\beat].frac ? thisThread.beats.frac;
+      fn.value(beatFrac*2*pi)});
 	}
 }
