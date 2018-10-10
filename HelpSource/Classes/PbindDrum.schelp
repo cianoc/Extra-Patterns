@@ -1,0 +1,50 @@
+TITLE:: PbindDrum
+summary:: Pattern for creating drum patterns using only amplitudes.
+categories:: Patterns
+related:: Classes/Pdrum, Classes/Ptab, Classes/Pbindtab
+
+DESCRIPTION::
+This pattern takes a pattern, or array, of amplitudes and updates an existing Pdef with \amp, \dur and \type values based upon rhythm set with this pattern.
+
+code::
+Pbindef(\bd, \env, 0.5)
+PbindDrum(\bd, [0.8, 0.6, 0, 0.6]).asStream
+Pdef(\bd).asStream
+::
+
+
+will create the following series of events:
+
+code::
+( 'env': 0.5, 'dur': 0.0625, 'type': note, 'amp': 0.8 )
+( 'env': 0.5, 'dur': 0.0625, 'type': note, 'amp': 0.6 )
+( 'env': 0.5, 'dur': 0.0625, 'type': rest, 'amp': 0 )
+( 'env': 0.5, 'dur': 0.0625, 'type': note, 'amp': 0.6 )
+
+::
+
+PbindDrum can handle tuplets and any arbitrary grid, however these things cannot change within the pattern itself.
+
+CLASSMETHODS::
+
+METHOD:: new
+
+ARGUMENT:: key
+The key for the Pdef that this pattern will be inserted into.
+
+ARGUMENT:: sequence
+An array, or pattern, that returns values between 0 and 1. These will be used to set the amplitude of the output events. A value of 0 will result in a rest being returned, all other values will result in a note.
+
+ARGUMENT:: grid
+Granularity of the grid beat. 1/16 for 16th notes, 1/8 for 8th notes, etc. See tuplet for handling triplets, etc. Static value, patterns will not work.
+
+ARGUMENT:: tuplet
+If you want to use tuplets, set this value to the tuplet value. E.g. for triplets enter 3, for quintuplets 5. Normal beats are 2. Static value, patterns will not work.
+
+ARGUMENT:: repeats
+Number of times to repeat this value.
+
+
+code::
+Something may go here later.
+::

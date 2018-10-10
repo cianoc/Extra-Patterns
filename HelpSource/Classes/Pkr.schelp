@@ -1,0 +1,17 @@
+TITLE:: Pkr
+summary:: A pattern that reads a control bus.
+categories:: Patterns
+
+DESCRIPTION::
+Each time this pattern is called it returns the current value on the bus.
+
+(c) 2010 by Patrick Borgeat <patrick@borgeat.de>
+
+www.cappel-nord.de
+
+CLASSMETHODS::
+
+METHOD:: new
+
+ARGUMENT:: bus
+Control bus, or node,  that you want to read. This is a constant value.

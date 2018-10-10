@@ -24,40 +24,7 @@ Pkr : Pfunc {
 	}
 }
 
-/*
-	Plast
-	(c) 2010 by Patrick Borgeat <patrick@borgeat.de>
-	http://www.cappel-nord.de
 
-	Part of BenoitLib
-	http://github.com/cappelnord/BenoitLib
-	http://www.the-mandelbrots.de
-
-	Remembers the last value of a key.
-
-*/
-
-Plast : Pattern {
-
-	var <>key;
-	var last;
-
-	*new {|key|
-		^super.new.key_(key);
-	}
-
-	embedInStream {|event|
-		var ret;
-
-		while {true} {
-			ret = last ?? {event.use({event.at(key).value})};
-			last = event.use({event.at(key).value});
-			last.yield;
-		};
-
-		^event;
-	}
-}
 
 /*
 Can take either an array of format: [[beat, event], [beat, event]...]
@@ -131,8 +98,11 @@ Pscore : Pattern {
 }
 
 
-/* Returns beat in bar */
-Pbeat : Pattern {
+/* Returns beat in bar
+Probably no longer useful to me now you have the grid thing
+but keeping around  for moment just in case
+*/
+/*Pbeat : Pattern {
 	var <>repeats;
 	*new { arg repeats=inf;
 		^super.newCopyArgs(repeats)
@@ -143,7 +113,7 @@ Pbeat : Pattern {
 		repeats.value(inval).do { inval = (thisThread.beatInBar).yield };
 		^inval
 	}
-}
+}*/
 
 Pdrum {
 	*new{|sequence, grid=(1/16), tuplet=2, repeats=inf|
@@ -155,7 +125,7 @@ Pdrum {
 	}
 }
 
-Pbindrum {
+PbindDrum {
 	*new{|key, sequence, grid=(1/16), tuplet=2, repeats=1|
 		^Pbindef(key,
 			\dur, grid * (2/tuplet),
@@ -169,19 +139,20 @@ Ptab {
 	*new{|tab, grid=(1/16), tuplet=2, repeats=inf|
 		var func = {
 			tab.do{|beat|
-				if(beat == $x){
+
+				if(beat == $x || $X){
 					true.yield
 				};
-				if(beat == $o || beat == $_){
+				if(beat == $o || beat == $_ || $O){
 					false.yield;
 				}
 		}};
 
-		^Pbind(\dur, grid, \type, Pn(Pif(Prout(func), \note, \rest), repeats));
+		^Pbind(\dur, grid*(2/tuplet), \type, Pn(Pif(Prout(func), \note, \rest), repeats));
 	}
 }
 
-Pbindtab {
+PbindTab {
 	*new{|key, tab, grid=(1/16), tuplet=2, repeats=inf|
 		var func = {
 			tab.do{|beat|
